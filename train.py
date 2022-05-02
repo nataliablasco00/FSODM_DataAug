@@ -19,6 +19,10 @@ from cfg import parse_cfg, cfg
 from darknet import Darknet
 import pdb
 
+import warnings
+warnings.filterwarnings("ignore")
+warnings.filterwarnings("ignore", category=UserWarning)
+
 # Training settings
 datacfg = sys.argv[1]
 darknetcfg = parse_cfg(sys.argv[2])
@@ -86,7 +90,7 @@ init_width = model.width
 init_height = model.height
 init_epoch = 0 if cfg.tuning else model.seen / nsamples
 max_epochs = max_batches * batch_size / nsamples + 1
-max_epochs = int(math.ceil(cfg.max_epoch * 1. / cfg.repeat)) if cfg.tuning else max_epochs
+max_epochs = int(math.ceil(cfg.max_epoch * 1. / cfg.repeat)) if cfg.tuning else max_epochs #TODO: change
 print(cfg.repeat, nsamples, max_batches, batch_size)
 print(num_workers)
 

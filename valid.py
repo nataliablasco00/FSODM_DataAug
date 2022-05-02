@@ -51,7 +51,7 @@ def valid(datacfg, darknetcfg, learnetcfg, weightfile, outfile, use_baserw=False
         metaset = dataset.MetaDataset(metafiles=metadict, train=False, ensemble=True)
         metaloader = torch.utils.data.DataLoader(
             metaset,
-            batch_size=len(metaset),
+            batch_size= 2, # len(metaset),
             shuffle=False,
             **kwargs
         )
@@ -76,7 +76,7 @@ def valid(datacfg, darknetcfg, learnetcfg, weightfile, outfile, use_baserw=False
         metaset = dataset.MetaDataset(metafiles=metadict, train=False, ensemble=True, with_ids=True)
         metaloader = torch.utils.data.DataLoader(
             metaset,
-            batch_size=64,
+            batch_size=2, # 64,
             shuffle=False,
             **kwargs
         )

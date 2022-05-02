@@ -176,7 +176,7 @@ def voc_eval(detpath,
         class_recs[imagename] = {'bbox': bbox, 'det': det}
 
     # read dets
-    detfile = detpath.format(classname)
+    detfile = detpath.format("comp4_det_test_"+str(classname))
     with open(detfile, 'r') as f:
         lines = f.readlines()
 
