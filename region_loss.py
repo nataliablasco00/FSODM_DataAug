@@ -62,14 +62,14 @@ def build_targets(pred_boxes, target, conf, anchors, num_anchors, feature_size, 
     nB = target.size(0)
     nA = num_anchors
     # print('anchor_step: ', anchor_step)
-    obj_mask = torch.cuda.ByteTensor(nB, nA, feature_size[0], feature_size[1]).fill_(0)
-    noobj_mask = torch.cuda.ByteTensor(nB, nA, feature_size[0], feature_size[1]).fill_(1)
-    tx = torch.zeros(nB, nA, feature_size[0], feature_size[1]).cuda()
-    ty = torch.zeros(nB, nA, feature_size[0], feature_size[1]).cuda()
-    tw = torch.zeros(nB, nA, feature_size[0], feature_size[1]).cuda()
-    th = torch.zeros(nB, nA, feature_size[0], feature_size[1]).cuda()
-    tcls = torch.zeros(nB, nA, feature_size[0], feature_size[1]).cuda()
-    iou_scores = torch.zeros(nB, nA, feature_size[0], feature_size[1]).cuda()
+    obj_mask = torch.cuda.ByteTensor(nB, nA, int(feature_size[0]), int(feature_size[1])).fill_(0)
+    noobj_mask = torch.cuda.ByteTensor(nB, nA, int(feature_size[0]), int(feature_size[1])).fill_(1)
+    tx = torch.zeros(nB, nA, int(feature_size[0]), int(feature_size[1])).cuda()
+    ty = torch.zeros(nB, nA, int(feature_size[0]), int(feature_size[1])).cuda()
+    tw = torch.zeros(nB, nA, int(feature_size[0]), int(feature_size[1])).cuda()
+    th = torch.zeros(nB, nA, int(feature_size[0]), int(feature_size[1])).cuda()
+    tcls = torch.zeros(nB, nA, int(feature_size[0]), int(feature_size[1])).cuda()
+    iou_scores = torch.zeros(nB, nA, int(feature_size[0]), int(feature_size[1])).cuda()
 
     tboxes = target.view(-1, 5)
     nonzero_ind = tboxes[:, 3] > 0
@@ -102,8 +102,8 @@ def build_targets(pred_boxes, target, conf, anchors, num_anchors, feature_size, 
     th[ind_B, best_a, gj, gi] = torch.log(gh / anchors[best_a][:, 1])
     tcls[ind_B, best_a, gj, gi] = tboxes[:, 0].float()
     tconf = obj_mask.float()
-    pred_boxes = pred_boxes.contiguous().view(nB, nA, feature_size[0], feature_size[1], 4).cuda()
-    conf = conf.contiguous().view(nB, nA, feature_size[0], feature_size[1]).data
+    pred_boxes = pred_boxes.contiguous().view(nB, nA, int(feature_size[0]), int(feature_size[1]), 4).cuda()
+    conf = conf.contiguous().view(nB, nA, int(feature_size[0]), int(feature_size[1])).data
     target_boxes = torch.cat([(tboxes[:, 1] * input_size[1]).float().unsqueeze(0),
                               (tboxes[:, 2] * input_size[0]).float().unsqueeze(0),
                               gw.unsqueeze(0),
@@ -216,14 +216,14 @@ class RegionLoss(nn.Module):
         t4 = time.time()
         if False:
             print('-----------------------------------')
-            print('        activation : %f' % (t1 - t0))
-            print(' create pred_boxes : %f' % (t2 - t1))
-            print('     build targets : %f' % (t3 - t2))
-            print('       create loss : %f' % (t4 - t3))
-            print('             total : %f' % (t4 - t0))
-        print('%d: nGT %d, recall %d, proposals %d, loss: x %f, y %f, w %f, h %f, conf %f, cls %f, total %f' % (
+            print(('        activation : %f' % (t1 - t0)))
+            print((' create pred_boxes : %f' % (t2 - t1)))
+            print(('     build targets : %f' % (t3 - t2)))
+            print(('       create loss : %f' % (t4 - t3)))
+            print(('             total : %f' % (t4 - t0)))
+        print(('%d: nGT %d, recall %d, proposals %d, loss: x %f, y %f, w %f, h %f, conf %f, cls %f, total %f' % (
             self.seen, nGT, nCorrect, nProposals, loss_x.data[0], loss_y.data[0], loss_w.data[0], loss_h.data[0],
-            loss_conf.data[0], loss_cls.data[0], loss.data[0]))
+            loss_conf.data[0], loss_cls.data[0], loss.data[0])))
         return loss
 
 
@@ -245,7 +245,7 @@ class RegionLossV2(nn.Module):
         self.seen = 0
         self.input_size = input_size
         self.feature_scale = [32, 16, 8]
-        print('class_scale', self.class_scale)
+        print(('class_scale', self.class_scale))
 
     def forward(self, output, target):
         # output : (bs*cs, nA*(5+1), N)
@@ -301,11 +301,11 @@ class RegionLossV2(nn.Module):
             feature_h = self.input_size[0] / fs
             feature_w = self.input_size[1] / fs
             feature_size.append([feature_h, feature_w])
-            grid_x.append(torch.linspace(0, feature_w - 1, feature_w).repeat(feature_h, 1) \
-                          .repeat(nB * nA, 1, 1).view(nB, nA, feature_h * feature_w).cuda())
-            grid_y.append(torch.linspace(0, feature_h - 1, feature_h).repeat(feature_w, 1).t() \
-                          .repeat(nB * nA, 1, 1).view(nB, nA, feature_h * feature_w).cuda())
-            scale.append((torch.ones(nB, nA, feature_h * feature_w) * fs).cuda())
+            grid_x.append(torch.linspace(0, feature_w - 1, int(feature_w)).repeat(int(feature_h), 1) \
+                          .repeat(int(nB * nA), 1, 1).view(nB, nA, int(feature_h * feature_w)).cuda())
+            grid_y.append(torch.linspace(0, feature_h - 1, int(feature_h)).repeat(int(feature_w), 1).t() \
+                          .repeat(int(nB * nA), 1, 1).view(nB, nA, int(feature_h * feature_w)).cuda())
+            scale.append((torch.ones(nB, nA, int(feature_h * feature_w)) * fs).cuda())
         grid_x = torch.cat(grid_x, 2)  # (nB, nA, N)
         grid_y = torch.cat(grid_y, 2)
         scale = torch.cat(scale, 2)
@@ -314,10 +314,10 @@ class RegionLossV2(nn.Module):
                 .index_select(1, torch.LongTensor([0])).cuda()
             ah = torch.Tensor(self.anchors[6 * i:6 * (i + 1)]).view(nA, -1) \
                 .index_select(1, torch.LongTensor([1])).cuda()
-            anchor_w.append(aw.repeat(nB, feature_size[i][0] * feature_size[i][1]) \
-                            .view(nB, nA, feature_size[i][0] * feature_size[i][1]))
-            anchor_h.append(ah.repeat(nB, feature_size[i][0] * feature_size[i][1]) \
-                            .view(nB, nA, feature_size[i][0] * feature_size[i][1]))
+            anchor_w.append(aw.repeat(nB, int(feature_size[i][0] * feature_size[i][1])) \
+                            .view(nB, nA, int(feature_size[i][0] * feature_size[i][1])))
+            anchor_h.append(ah.repeat(nB, int(feature_size[i][0] * feature_size[i][1])) \
+                            .view(nB, nA, int(feature_size[i][0] * feature_size[i][1])))
         anchor_w = torch.cat(anchor_w, 2)
         anchor_h = torch.cat(anchor_h, 2)
         pred_boxes[0] = (x.data + grid_x) * scale
@@ -339,12 +339,12 @@ class RegionLossV2(nn.Module):
         start_N = 0
         detected50 = torch.zeros(0)
         detected75 = torch.zeros(0)
-        for imap in xrange(3):
+        for imap in range(3):
             nGT, iou_scores_temp, obj_mask_temp, noobj_mask_temp, tx_temp, ty_temp, tw_temp, th_temp, tconf_temp, \
             tcls_temp, detected50_temp, detected75_temp = build_targets(
-                pred_boxes[:, :, start_N:start_N + feature_size[imap][0] * feature_size[imap][1], :],
+                pred_boxes[:, :, int(start_N):int(start_N) + int(feature_size[imap][0] * feature_size[imap][1]), :],
                 target.data.cuda(),
-                conf[:, :, start_N:start_N + feature_size[imap][0] * feature_size[imap][1]],
+                conf[:, :, int(start_N):int(start_N) + int(feature_size[imap][0] * feature_size[imap][1])],
                 torch.Tensor(self.anchors[6 * imap:6 * (imap + 1)]).view(nA, -1).cuda(),
                 nA,
                 feature_size[imap],
@@ -356,16 +356,16 @@ class RegionLossV2(nn.Module):
                 detected75 = torch.zeros(nGT).cuda()
             detected50 += detected50_temp
             detected75 += detected75_temp
-            start_N += feature_size[imap][0] * feature_size[imap][1]
-            iou_scores.append(iou_scores_temp.view(nB, nA, feature_size[imap][0] * feature_size[imap][1]))
-            obj_mask.append(obj_mask_temp.view(nB, nA, feature_size[imap][0] * feature_size[imap][1]))
-            noobj_mask.append(noobj_mask_temp.view(nB, nA, feature_size[imap][0] * feature_size[imap][1]))
-            tx.append(tx_temp.view(nB, nA, feature_size[imap][0] * feature_size[imap][1]))
-            ty.append(ty_temp.view(nB, nA, feature_size[imap][0] * feature_size[imap][1]))
-            tw.append(tw_temp.view(nB, nA, feature_size[imap][0] * feature_size[imap][1]))
-            th.append(th_temp.view(nB, nA, feature_size[imap][0] * feature_size[imap][1]))
-            tconf.append(tconf_temp.view(nB, nA, feature_size[imap][0] * feature_size[imap][1]))
-            tcls.append(tcls_temp.view(nB, nA, feature_size[imap][0] * feature_size[imap][1]))
+            start_N += int(feature_size[imap][0] * feature_size[imap][1])
+            iou_scores.append(iou_scores_temp.view(nB, nA, int(feature_size[imap][0] * feature_size[imap][1])))
+            obj_mask.append(obj_mask_temp.view(nB, nA, int(feature_size[imap][0] * feature_size[imap][1])))
+            noobj_mask.append(noobj_mask_temp.view(nB, nA, int(feature_size[imap][0] * feature_size[imap][1])))
+            tx.append(tx_temp.view(nB, nA, int(feature_size[imap][0] * feature_size[imap][1])))
+            ty.append(ty_temp.view(nB, nA, int(feature_size[imap][0] * feature_size[imap][1])))
+            tw.append(tw_temp.view(nB, nA, int(feature_size[imap][0] * feature_size[imap][1])))
+            th.append(th_temp.view(nB, nA, int(feature_size[imap][0] * feature_size[imap][1])))
+            tconf.append(tconf_temp.view(nB, nA, int(feature_size[imap][0] * feature_size[imap][1])))
+            tcls.append(tcls_temp.view(nB, nA, int(feature_size[imap][0] * feature_size[imap][1])))
 
         iou_scores = torch.cat(iou_scores, 2)
         obj_mask = torch.cat(obj_mask, 2)
@@ -448,15 +448,15 @@ class RegionLossV2(nn.Module):
         t4 = time.time()
         if False:
             print('-----------------------------------')
-            print('        activation : %f' % (t1 - t0))
-            print(' create pred_boxes : %f' % (t2 - t1))
-            print('     build targets : %f' % (t3 - t2))
-            print('       create loss : %f' % (t4 - t3))
-            print('             total : %f' % (t4 - t0))
-        print(
+            print(('        activation : %f' % (t1 - t0)))
+            print((' create pred_boxes : %f' % (t2 - t1)))
+            print(('     build targets : %f' % (t3 - t2)))
+            print(('       create loss : %f' % (t4 - t3)))
+            print(('             total : %f' % (t4 - t0)))
+        print((
             '%d: nGT %d, precision %f, recall50 %f, recall75 %f, cls_acc %f, loss: x %f, y %f, w %f, h %f, conf %f, cls %f, total %f' % \
             (self.seen, nGT, precision, recall50, recall75, cls_acc, loss_x.data.item(), loss_y.data.item(), \
-             loss_w.data.item(), loss_h.data.item(), loss_conf.data.item(), loss_cls.data.item(), loss.data.item()))
+             loss_w.data.item(), loss_h.data.item(), loss_conf.data.item(), loss_cls.data.item(), loss.data.item())))
         # print('%d: nGT %d, recall %d, proposals %d, loss: x %f, y %f, w %f, h %f, conf %f, cls %f, cls_new %f, total %f' % (self.seen, nGT, nCorrect, nProposals, loss_x.data[0], loss_y.data[0], loss_w.data[0], loss_h.data[0], loss_conf.data[0], loss_cls.data[0], loss_cls_new.data[0], loss.data[0]))
 
         return loss
@@ -472,3 +472,4 @@ def select_classes(pred, tgt, ids):
     new_pred = new_pred[:, ids]
     new_tgt = new_tgt[idxes]
     return new_pred, new_tgt
+

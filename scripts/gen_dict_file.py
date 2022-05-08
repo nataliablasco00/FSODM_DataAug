@@ -54,7 +54,7 @@ if __name__ == '__main__':
     with open(fulldict, 'w') as f:
         for cls in classes:
             line = '{} {}\n'.format(cls, os.path.join(filelistDir, '{}_training.txt'.format(cls)))
-            print('{}:{}'.format(fulldict, line))
+            print(('{}:{}'.format(fulldict, line)))
             f.write(line)
 
     for shot in fewshotlist:
@@ -62,5 +62,5 @@ if __name__ == '__main__':
         with open(fewdict, 'w') as f:
             for cls in classes:
                 line = '{} {}\n'.format(cls, os.path.join(filelistDir, 'box_{}shot_{}_train.txt'.format(shot, cls)))
-                print('{}:{}'.format(fewdict, line))
+                print(('{}:{}'.format(fewdict, line)))
                 f.write(line)

@@ -23,7 +23,7 @@ def valid(datacfg, darknetcfg, learnetcfg, weightfile, outfile, use_baserw=False
     backup = weightfile.split('/')[-2]
     ckpt_pre = '/ene_' if use_baserw else '/ene'
     prefix = 'results/' + backup.split('/')[-1] + ckpt_pre + ckpt
-    print('saving to: ' + prefix)
+    print(('saving to: ' + prefix))
     # prefix = 'results/' + weightfile.split('/')[1]
     # names = load_class_names(name_list)
 
@@ -54,7 +54,7 @@ def valid(datacfg, darknetcfg, learnetcfg, weightfile, outfile, use_baserw=False
     print('===> Generating dynamic weights...')
     kkk = 0
     for metax, mask, clsids in metaloader:
-        print('===> {}/{}'.format(kkk, len(metaset) // 64))
+        print(('===> {}/{}'.format(kkk, len(metaset) // 64)))
         kkk += 1
         metax, mask = metax.cuda(), mask.cuda()
         metax, mask = Variable(metax, volatile=True), Variable(mask, volatile=True)
@@ -66,7 +66,7 @@ def valid(datacfg, darknetcfg, learnetcfg, weightfile, outfile, use_baserw=False
     outfile = './reweight_coef.data'
     with open(outfile, 'w') as f:
         for c in range(n_cls):
-            print('processing %s' % classes[c])
+            print(('processing %s' % classes[c]))
             f.write(classes[c] + '\n')
 
             for i in range(3):
@@ -109,3 +109,5 @@ if __name__ == '__main__':
     else:
         print('Usage:')
         print(' python valid.py datacfg cfgfile weightfile')
+
+

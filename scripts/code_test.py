@@ -34,4 +34,5 @@ if __name__ == '__main__':
                 with open(os.path.join(path, d, t), 'r') as f:
                     num += len(f.readlines())
 
-            print('{}: {}'.format(d, num))
+            print(('{}: {}'.format(d, num)))
+

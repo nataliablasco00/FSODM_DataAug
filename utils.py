@@ -187,9 +187,9 @@ def get_region_boxes(output, conf_thresh, num_classes, anchors, num_anchors, onl
     t3 = time.time()
     if False:
         print('---------------------------------')
-        print('matrix computation : %f' % (t1-t0))
-        print('        gpu to cpu : %f' % (t2-t1))
-        print('      boxes filter : %f' % (t3-t2))
+        print(('matrix computation : %f' % (t1-t0)))
+        print(('        gpu to cpu : %f' % (t2-t1)))
+        print(('      boxes filter : %f' % (t3-t2)))
         print('---------------------------------')
     return all_boxes
 
@@ -284,9 +284,9 @@ def get_region_boxes_v2(output, n_models, conf_thresh, num_classes, anchors, num
     t3 = time.time()
     if False:
         print('---------------------------------')
-        print('matrix computation : %f' % (t1-t0))
-        print('        gpu to cpu : %f' % (t2-t1))
-        print('      boxes filter : %f' % (t3-t2))
+        print(('matrix computation : %f' % (t1-t0)))
+        print(('        gpu to cpu : %f' % (t2-t1)))
+        print(('      boxes filter : %f' % (t3-t2)))
         print('---------------------------------')
     return all_boxes
 
@@ -355,7 +355,7 @@ def get_region_boxes_v3(output, n_models, conf_thresh, num_classes, anchors, num
     hs = torch.exp(output[3]) * anchor_h
 
     det_confs = torch.sigmoid(output[4])
-    print('conf_number = {}'.format(torch.sum(det_confs > 0.5)))
+    print(('conf_number = {}'.format(torch.sum(det_confs > 0.5))))
 
     # cls_confs = torch.nn.Softmax()(Variable(output[5:5+num_classes].transpose(0,1))).data
     cls_max_confs, cls_max_ids = torch.max(cls_confs, 1)
@@ -405,9 +405,9 @@ def get_region_boxes_v3(output, n_models, conf_thresh, num_classes, anchors, num
     t3 = time.time()
     if False:
         print('---------------------------------')
-        print('matrix computation : %f' % (t1 - t0))
-        print('        gpu to cpu : %f' % (t2 - t1))
-        print('      boxes filter : %f' % (t3 - t2))
+        print(('matrix computation : %f' % (t1 - t0)))
+        print(('        gpu to cpu : %f' % (t2 - t1)))
+        print(('      boxes filter : %f' % (t3 - t2)))
         print('---------------------------------')
     return all_boxes
 
@@ -529,9 +529,9 @@ def get_region_boxes_v4(output, n_models, conf_thresh, num_classes, anchors, num
     t3 = time.time()
     if False:
         print('---------------------------------')
-        print('matrix computation : %f' % (t1 - t0))
-        print('        gpu to cpu : %f' % (t2 - t1))
-        print('      boxes filter : %f' % (t3 - t2))
+        print(('matrix computation : %f' % (t1 - t0)))
+        print(('        gpu to cpu : %f' % (t2 - t1)))
+        print(('      boxes filter : %f' % (t3 - t2)))
         print('---------------------------------')
     return all_boxes
 
@@ -563,7 +563,7 @@ def plot_boxes_cv2(img, boxes, savename=None, class_names=None, color=None):
         if len(box) >= 7 and class_names:
             cls_conf = box[5]
             cls_id = box[6]
-            print('%s: %f' % (class_names[cls_id], cls_conf))
+            print(('%s: %f' % (class_names[cls_id], cls_conf)))
             classes = len(class_names)
             offset = cls_id * 123457 % classes
             red   = get_color(2, offset, classes)
@@ -574,7 +574,7 @@ def plot_boxes_cv2(img, boxes, savename=None, class_names=None, color=None):
             img = cv2.putText(img, class_names[cls_id], (x1,y1), cv2.FONT_HERSHEY_SIMPLEX, 1.2, rgb, 1)
         img = cv2.rectangle(img, (x1,y1), (x2,y2), rgb, 1)
     if savename:
-        print("save plot results to %s" % savename)
+        print(("save plot results to %s" % savename))
         cv2.imwrite(savename, img)
     return img
 
@@ -602,7 +602,7 @@ def plot_boxes(img, boxes, savename=None, class_names=None):
         if len(box) >= 7 and class_names:
             cls_conf = box[5]
             cls_id = box[6]
-            print('%s: %f' % (class_names[cls_id], cls_conf))
+            print(('%s: %f' % (class_names[cls_id], cls_conf)))
             classes = len(class_names)
             offset = cls_id * 123457 % classes
             red   = get_color(2, offset, classes)
@@ -612,7 +612,7 @@ def plot_boxes(img, boxes, savename=None, class_names=None):
             draw.text((x1, y1), class_names[cls_id], fill=rgb)
         draw.rectangle([x1, y1, x2, y2], outline = rgb)
     if savename:
-        print("save plot results to %s" % savename)
+        print(("save plot results to %s" % savename))
         img.save(savename)
     return img
 
@@ -694,12 +694,12 @@ def do_detect(model, img, conf_thresh, nms_thresh, use_cuda=1):
 
     if False:
         print('-----------------------------------')
-        print(' image to tensor : %f' % (t1 - t0))
-        print('  tensor to cuda : %f' % (t2 - t1))
-        print('         predict : %f' % (t3 - t2))
-        print('get_region_boxes : %f' % (t4 - t3))
-        print('             nms : %f' % (t5 - t4))
-        print('           total : %f' % (t5 - t0))
+        print((' image to tensor : %f' % (t1 - t0)))
+        print(('  tensor to cuda : %f' % (t2 - t1)))
+        print(('         predict : %f' % (t3 - t2)))
+        print(('get_region_boxes : %f' % (t4 - t3)))
+        print(('             nms : %f' % (t5 - t4)))
+        print(('           total : %f' % (t5 - t0)))
         print('-----------------------------------')
     return boxes
 
@@ -815,4 +815,5 @@ def get_image_size(fname):
         return width, height
 
 def logging(message):
-    print('%s %s' % (time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()), message))
+    print(('%s %s' % (time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()), message)))
+

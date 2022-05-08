@@ -20,7 +20,7 @@ def valid(datacfg, darknetcfg, learnetcfg, weightfile, outfile, use_baserw=False
     backup = weightfile.split('/')[-2]
     ckpt_pre = '/ene_' if use_baserw else '/ene'
     prefix = 'results/' + backup.split('/')[-1] + ckpt_pre + ckpt
-    print('saving to: ' + prefix)
+    print(('saving to: ' + prefix))
     # prefix = 'results/' + weightfile.split('/')[1]
     # names = load_class_names(name_list)
 
@@ -59,7 +59,7 @@ def valid(datacfg, darknetcfg, learnetcfg, weightfile, outfile, use_baserw=False
         n_cls = len(metaset.classes)
 
         print('===> Generating dynamic weights...')
-        metax, mask = metaloader.next()
+        metax, mask = next(metaloader)
         metax, mask = metax.cuda(), mask.cuda()
         metax, mask = Variable(metax, volatile=True), Variable(mask, volatile=True)
         dynamic_weights = m.meta_forward(metax, mask)
@@ -71,7 +71,7 @@ def valid(datacfg, darknetcfg, learnetcfg, weightfile, outfile, use_baserw=False
             for j in range(len(metaset.meta_cnts)):
                 new_weight.append(torch.mean(dynamic_weights[i][inds[j]:inds[j+1]], dim=0))
             dynamic_weights[i] = torch.stack(new_weight)
-            print(dynamic_weights[i].shape)
+            print((dynamic_weights[i].shape))
     else:
         metaset = dataset.MetaDataset(metafiles=metadict, train=False, ensemble=True, with_ids=True)
         metaloader = torch.utils.data.DataLoader(
@@ -90,7 +90,7 @@ def valid(datacfg, darknetcfg, learnetcfg, weightfile, outfile, use_baserw=False
         print('===> Generating dynamic weights...')
         kkk = 0
         for metax, mask, clsids in metaloader:
-            print('===> {}/{}'.format(kkk, len(metaset) // 64))
+            print(('===> {}/{}'.format(kkk, len(metaset) // 64)))
             kkk += 1
             metax, mask = metax.cuda(), mask.cuda()
             metax, mask = Variable(metax, volatile=True), Variable(mask, volatile=True)
@@ -113,7 +113,7 @@ def valid(datacfg, darknetcfg, learnetcfg, weightfile, outfile, use_baserw=False
             import pickle
             # f = 'data/rws/voc_novel{}_.pkl'.format(cfg.novelid)
             f = 'data/rws/voc_novel{}_.pkl'.format(0)
-            print('===> Loading from {}...'.format(f))
+            print(('===> Loading from {}...'.format(f)))
             with open(f, 'rb') as f:
             # with open('data/rws/voc_novel0_.pkl', 'rb') as f:
                 rws = pickle.load(f)
@@ -220,3 +220,4 @@ if __name__ == '__main__':
     else:
         print('Usage:')
         print(' python valid.py datacfg cfgfile weightfile')
+

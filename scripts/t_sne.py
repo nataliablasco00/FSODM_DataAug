@@ -35,7 +35,7 @@ def get_coefs(datacfg, darknetcfg, learnetcfg, weightfile):
     print('===> Generating dynamic weights...')
     kkk = 0
     for metax, mask, clsids in metaloader:
-        print('===> {}/{}'.format(kkk, len(metaset) // 64))
+        print(('===> {}/{}'.format(kkk, len(metaset) // 64)))
         kkk += 1
         metax, mask = metax.cuda(), mask.cuda()
         metax, mask = Variable(metax, volatile=True), Variable(mask, volatile=True)
@@ -76,3 +76,6 @@ if __name__ == '__main__':
         coef = np.reshape(coef, (-1, coef.shape[-1]))
         coef_embad = TSNE(n_jobs=4).fit_transform(coef)
         np.savetxt('coef_{}.csv'.format(i), coef_embad, delimiter=',', fmt='%s')
+
+
+

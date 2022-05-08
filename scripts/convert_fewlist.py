@@ -14,7 +14,7 @@ src_folder = 'data/vocsplit'
 
 print('===> Converting few-shot name lists.. ')
 for name_list in sorted(os.listdir(src_folder)):
-    print('  | On ' + name_list)
+    print(('  | On ' + name_list))
     # Read from src
     with open(path.join(src_folder, name_list), 'r') as f:
         names = f.readlines()
@@ -34,7 +34,7 @@ for fname in ['voc_traindict_full.txt',
               'voc_traindict_bbox_5shot.txt',
               'voc_traindict_bbox_10shot.txt']: 
     full_name = path.join('data', fname)
-    print('  | On ' + full_name)
+    print(('  | On ' + full_name))
     # Read lines
     with open(full_name, 'r') as f:
         lines = f.readlines()
@@ -48,3 +48,4 @@ for fname in ['voc_traindict_full.txt',
         f.writelines(lines)
 
 print('===> Finished!')
+

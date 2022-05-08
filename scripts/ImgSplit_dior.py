@@ -45,3 +45,4 @@ if __name__ == '__main__':
 
     evaluationsplit = splitbase(outdir=os.path.join(datapath, 'evaluation'), ext='.jpg')
     evaluationsplit.splitdata(datalist['evaluation'], 1)
+

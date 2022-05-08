@@ -195,9 +195,9 @@ class splitbase():
         if np.shape(img) == ():
             return
 
-        print('Parsing {}'.format(imagepath))
+        print(('Parsing {}'.format(imagepath)))
         for obj in objects:
-            obj['poly'] = list(map(lambda x:rate*x, obj['poly']))
+            obj['poly'] = list([rate*x for x in obj['poly']])
 
         if rate != 1:
             resizeimg = cv2.resize(img, None, fx=rate, fy=rate, interpolation = cv2.INTER_CUBIC)
@@ -235,3 +235,4 @@ class splitbase():
         """
         for name in datalist:
             self.SplitSingle(name, datalist[name]['imagepath'], datalist[name]['objects'], rate, self.ext)
+

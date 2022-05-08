@@ -48,7 +48,7 @@ if __name__ == '__main__':
         os.mkdir(os.path.join(datapath, 'diorlist'))
 
     for class_name in classes:
-        print('parsing {}'.format(class_name))
+        print(('parsing {}'.format(class_name)))
         for image_set in sets:
             files = os.listdir(os.path.join(datapath, '{}/images'.format(image_set)))
             image_ids = [x.strip('.jpg') for x in files]
@@ -89,3 +89,4 @@ if __name__ == '__main__':
                             for txt in write_text:
                                 f.write(txt)
                         out_f.write('{}/{}/images/{}.jpg\n'.format(datapath, image_set, id))
+

@@ -93,13 +93,13 @@ def load_metadict(metapath, repeat=1):
 
     pdb.set_trace()
     # Remove base-class images
-    for k in metadict.keys():
+    for k in list(metadict.keys()):
         if k not in cfg.novel_classes:
             metadict[k] = []
-    metalist = set(sum(metadict.values(), []))
+    metalist = set(sum(list(metadict.values()), []))
 
     # Count bboxes
-    metacnt = {c:0 for c in metadict.keys()}
+    metacnt = {c:0 for c in list(metadict.keys())}
     for imgpath in metalist:
         labpath = listDataset.get_labpath(imgpath.strip())
         # Load converted annotations
@@ -109,7 +109,7 @@ def load_metadict(metapath, repeat=1):
         for ci in set(bcls):
             metacnt[cfg.classes[ci]] += bcls.count(ci)
 
-    for c in metacnt.keys():
+    for c in list(metacnt.keys()):
         metacnt[c] *= repeat
 
     metalist =  list(metalist) * repeat
@@ -197,10 +197,10 @@ class listDataset(Dataset):
                 self.lines = [topath(l) for l in file.readlines()]
 
         # Filter out images not in base classes
-        print("===> Number of samples (before filtring): %d" % len(self.lines))
+        print(("===> Number of samples (before filtring): %d" % len(self.lines)))
         if self.train and not isinstance(root, list):
             self.lines = [l for l in self.lines if self.is_valid(l)]
-        print("===> Number of samples (after filtring): %d" % len(self.lines))
+        print(("===> Number of samples (after filtring): %d" % len(self.lines)))
 
         if shuffle:
             random.shuffle(self.lines)
@@ -303,7 +303,7 @@ class MetaDataset(Dataset):
             else:
                 self.classes = cfg.classes
             factor = 10
-        print('num classes: ', len(self.classes))
+        print(('num classes: ', len(self.classes)))
 
         nbatch = factor * 500 * 64 * cfg.num_gpus // cfg.batch_size
 
@@ -330,7 +330,7 @@ class MetaDataset(Dataset):
                     if ensemble:
                         metainds[i] = list(zip([i]*len(lines), list(range(len(lines)))))
                     else:
-                        inds = np.random.choice(range(len(lines)), nbatch).tolist()
+                        inds = np.random.choice(list(range(len(lines))), nbatch).tolist()
                         metainds[i] = list(zip([i] * nbatch, inds))
 
         self.inds = sum(metainds, []) if ensemble else sum(list(zip(*metainds)), ())
@@ -445,7 +445,7 @@ class MetaDataset(Dataset):
         print('===> filtering...')
         _cnt = 0
         for clsid, metaind in inds:
-            print('|{}/{}'.format(_cnt, len(inds)))
+            print(('|{}/{}'.format(_cnt, len(inds))))
             _cnt += 1
             img, mask = self.get_metain(clsid, metaind)
             if img is not None:
@@ -475,3 +475,4 @@ class MetaDataset(Dataset):
                 .replace('.jpg', '.txt').replace('.png', '.txt')
 
         return labpath
+

@@ -39,3 +39,4 @@ for typ in types:
 
 # valid = /scratch/bykang/datasets/2007_test.txt
 # valid = data/voc_testdict_full.txt
+

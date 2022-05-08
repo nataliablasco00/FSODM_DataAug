@@ -80,3 +80,4 @@ if __name__ == '__main__':
                             for txt in write_text:
                                 f.write(txt)
                         out_f.write('{}/{}/images/{}.jpg\n'.format(datapath, image_set, id))
+

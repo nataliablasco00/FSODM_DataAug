@@ -58,3 +58,5 @@ class Split(Module):
         splits = np.cumsum([0] + self.splits)
         xs = [input[:,splits[i]:splits[i+1],:,:].contiguous() for i in range(len(splits) - 1)]
         return xs
+
+

@@ -10,7 +10,7 @@ sys.path.append(path.split(sys.path[0])[0])
 
 import xml.etree.ElementTree as ET
 import os, sys
-import cPickle
+import pickle
 import numpy as np
 import argparse
 from termcolor import colored
@@ -155,15 +155,15 @@ def voc_eval(detpath,
         for i, imagename in enumerate(imagenames):
             recs[imagename] = parse_rec(annopath.format(imagename))
             if i % 100 == 0:
-                print('Reading annotation for {:d}/{:d}'.format(i + 1, len(imagenames)))
+                print(('Reading annotation for {:d}/{:d}'.format(i + 1, len(imagenames))))
         # save
-        print('Saving cached annotations to {:s}'.format(cachefile))
+        print(('Saving cached annotations to {:s}'.format(cachefile)))
         with open(cachefile, 'w') as f:
-            cPickle.dump(recs, f)
+            pickle.dump(recs, f)
     else:
         # load
         with open(cachefile, 'r') as f:
-            recs = cPickle.load(f)
+            recs = pickle.load(f)
 
     # extract gt objects for this class
     class_recs = {}
@@ -186,9 +186,9 @@ def voc_eval(detpath,
     splitlines = [x.strip().split(' ') for x in lines]
     # print('before', len(splitlines))
     if args.single:
-        print('before', len(splitlines))
-        splitlines = filter(splitlines, clsfile)
-        print('after', len(splitlines))
+        print(('before', len(splitlines)))
+        splitlines = list(filter(splitlines, clsfile))
+        print(('after', len(splitlines)))
     # splitlines = bbox_filter(splitlines, conf=0.02)
     # print('after', len(splitlines))
     image_ids = [x[0] for x in splitlines]
@@ -296,7 +296,7 @@ def _do_python_eval(res_prefix, conf_path, novel=False, output_dir='output'):
         raise RuntimeError('No dataset issued')
     _novel_file = cfg['novel']
     novelid = cfg['novelid']
-    print('novelid: {}'.format(novelid))
+    print(('novelid: {}'.format(novelid)))
     _novel_classes = get_novels(_novel_file, novelid)
 
     # _novel_classes = ('bird', 'bus', 'cow', 'motorbike', 'sofa')
@@ -311,7 +311,7 @@ def _do_python_eval(res_prefix, conf_path, novel=False, output_dir='output'):
     base_aps = []
     # The PASCAL VOC metric changed in 2010
     use_07_metric = True if int(_year) < 2010 else False
-    print('VOC07 metric? ' + ('Yes' if use_07_metric else 'No'))
+    print(('VOC07 metric? ' + ('Yes' if use_07_metric else 'No')))
     if not os.path.isdir(output_dir):
         os.mkdir(output_dir)
     for i, cls in enumerate(classes):
@@ -334,12 +334,12 @@ def _do_python_eval(res_prefix, conf_path, novel=False, output_dir='output'):
         # print(prec)
 
         with open(os.path.join(output_dir, cls + '_pr.pkl'), 'w') as f:
-            cPickle.dump({'rec': rec, 'prec': prec, 'ap': ap}, f)
+            pickle.dump({'rec': rec, 'prec': prec, 'ap': ap}, f)
     print('~~~~~~~~')
-    print('Mean AP = {:.4f}'.format(np.mean(aps)))
+    print(('Mean AP = {:.4f}'.format(np.mean(aps))))
     if novel:
-        print(colored('Mean Base AP = {:.4f}'.format(np.mean(base_aps)), 'green'))
-        print(colored('Mean Novel AP = {:.4f}'.format(np.mean(novel_aps)), 'green'))
+        print((colored('Mean Base AP = {:.4f}'.format(np.mean(base_aps)), 'green')))
+        print((colored('Mean Novel AP = {:.4f}'.format(np.mean(novel_aps)), 'green')))
     # print('~~~~~~~~')
     # print('Results:')
     # # pdb.set_trace()
@@ -370,6 +370,7 @@ if __name__ == '__main__':
     parser.add_argument('--single', action='store_true')
     args = parser.parse_args()
     args.novel = True
-    print('prefix: {}'.format(args.res_prefix))
-    print('config file path: {}'.format(args.conf_path))
+    print(('prefix: {}'.format(args.res_prefix)))
+    print(('config file path: {}'.format(args.conf_path)))
     _do_python_eval(args.res_prefix, args.conf_path, novel=args.novel, output_dir='output')
+

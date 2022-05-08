@@ -167,3 +167,4 @@ def dynamic_conv2d(is_first, partial=None):
     DynamicConv2d.is_first = is_first
     DynamicConv2d.partial = partial
     return DynamicConv2d
+

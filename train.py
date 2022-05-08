@@ -1,4 +1,3 @@
-from __future__ import print_function
 import sys
 
 import time
@@ -20,8 +19,15 @@ from darknet import Darknet
 import pdb
 
 import warnings
-warnings.filterwarnings("ignore")
 warnings.filterwarnings("ignore", category=UserWarning)
+
+@torch.jit.script
+def fn(x):
+  if bool(x > 0):
+    warnings.warn("foo")
+  return x
+
+fn(torch.tensor(0))
 
 # Training settings
 datacfg = sys.argv[1]
@@ -158,7 +164,7 @@ def train(epoch):
     t1 = time.time()
     avg_time = torch.zeros(9)
     for batch_idx, (data, target) in enumerate(train_loader):
-        metax, mask = metaloader.next()
+        metax, mask = next(metaloader)
         t2 = time.time()
         adjust_learning_rate(optimizer, processed_batches)
         processed_batches = processed_batches + 1
@@ -214,5 +220,6 @@ def train(epoch):
         cur_model.save_weights('%s/%06d.weights' % (backupdir, epoch + 1))
 
 
-for epoch in range(init_epoch, max_epochs):
+for epoch in range(int(init_epoch), int(max_epochs)):
     train(epoch)
+

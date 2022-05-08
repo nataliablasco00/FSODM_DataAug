@@ -357,3 +357,4 @@ def load_data_with_label(imgpath, labpath, shape, jitter, hue, saturation, expos
     img, flip, dx, dy, sx, sy = data_augmentation(img, shape, jitter, hue, saturation, exposure, flag=data_aug)
     label = load_label(labpath, img.width, img.height, flip, dx, dy, 1. / sx, 1. / sy)
     return img, label
+

@@ -185,7 +185,7 @@ class Darknet(nn.Module):
             elif block['type'] == 'region':
                 continue
             else:
-                print('unknown type %s' % (block['type']))
+                print(('unknown type %s' % (block['type'])))
             layer_outputs.append(x if ind in self.routs else [])
 
         return torch.cat(output, 2)
@@ -294,7 +294,7 @@ class Darknet(nn.Module):
                 pass
 
             else:
-                print('Warning: Unrecognized Layer Type: ' + mdef['type'])
+                print(('Warning: Unrecognized Layer Type: ' + mdef['type']))
 
             # Register module list and number of output filters
             module_list.append(modules)
@@ -358,7 +358,7 @@ class Darknet(nn.Module):
                 elif block['type'] == 'split':
                     pass
                 else:
-                    print('unknown type %s' % (block['type']))
+                    print(('unknown type %s' % (block['type'])))
 
     def save_weights(self, outfile, cutoff=0):
         # pdb.set_trace()
@@ -425,7 +425,7 @@ class Darknet(nn.Module):
             elif block['type'] == 'split':
                 pass
             else:
-                print('unknown type %s' % (block['type']))
+                print(('unknown type %s' % (block['type'])))
         fp.close()
 
     def is_dynamic(self, block):
@@ -460,3 +460,4 @@ if __name__ == '__main__':
 class Swish(nn.Module):
     def forward(self, x):
         return x.mul_(torch.sigmoid(x))
+

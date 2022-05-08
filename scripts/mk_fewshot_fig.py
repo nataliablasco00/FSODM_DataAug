@@ -39,3 +39,4 @@ if __name__ == '__main__':
             plt.legend()
             plt.savefig('../../few_base.png', bbox_inches='tight', pad_inches=0.05)
             plt.show()
+

@@ -147,16 +147,17 @@ if __name__ == '__main__':
     atg_out_gpu = atg_model(a)
 
     print('--- nn cpu out ---')
-    print(nn_out_cpu.data.storage()[0:10])
+    print((nn_out_cpu.data.storage()[0:10]))
     print('--- dkn cpu out ---')
-    print(dkn_out_cpu.data.storage()[0:10])
+    print((dkn_out_cpu.data.storage()[0:10]))
     print('--- atg cpu out ---')
-    print(atg_out_cpu.data.storage()[0:10])
+    print((atg_out_cpu.data.storage()[0:10]))
 
 
     print('--- nn gpu out ---')
-    print(nn_out_gpu.data.storage()[0:10])
+    print((nn_out_gpu.data.storage()[0:10]))
     print('--- dkn gpu out ---')
-    print(dkn_out_gpu.data.storage()[0:10])
+    print((dkn_out_gpu.data.storage()[0:10]))
     print('--- atg gpu out ---')
-    print(atg_out_gpu.data.storage()[0:10])
+    print((atg_out_gpu.data.storage()[0:10]))
+

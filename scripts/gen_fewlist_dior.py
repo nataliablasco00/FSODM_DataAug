@@ -49,7 +49,7 @@ def gen_image_fewlist():
     print('-----------------------------------------------------------')
     print('----------- Generating fewlist  (images) ------------------')
     for i, clsname in enumerate(classes):
-        print('===> Processing class: {}'.format(clsname))
+        print(('===> Processing class: {}'.format(clsname)))
         with open(path.join(root, '{}_training.txt'.format(clsname)), 'r') as f:
             name_list = f.readlines()
         num = max(few_nums)
@@ -121,10 +121,10 @@ def gen_bbox_fewlist():
     print('-----------------------------------------------------------')
     print('----------- Generating fewlist  (bboxes) ------------------')
     for n in few_nums:
-        print('===> On {} shot ...'.format(n))
+        print(('===> On {} shot ...'.format(n)))
         filelists = get_bbox_fewlist(rootfile, n)
         for i, clsname in enumerate(classes):
-            print('   | Processing class: {}'.format(clsname))
+            print(('   | Processing class: {}'.format(clsname)))
             with open(path.join(root, 'box_{}shot_{}_train.txt'.format(n, clsname)), 'w') as f:
                 for name in filelists[i]:
                     f.write(name)
@@ -146,3 +146,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+

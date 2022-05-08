@@ -326,3 +326,4 @@ def get_best_begin_point(coordinate):
     if force_flag != 0:
         print("choose one direction!")
     return combinate[force_flag]
+
