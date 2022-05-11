@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="e91d4b37-bd39-4793-8f50-1b51bb5e770e" name="Default Changelist" comment="" />
+    <list default="true" id="e91d4b37-bd39-4793-8f50-1b51bb5e770e" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cfg/darknet_yolov3_spp.cfg" beforeDir="false" afterPath="$PROJECT_DIR$/cfg/darknet_yolov3_spp.cfg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cfg/fewtunev3_dior_10shot.data" beforeDir="false" afterPath="$PROJECT_DIR$/cfg/fewtunev3_dior_10shot.data" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cfg/fewtunev3_dior_30shot.data" beforeDir="false" afterPath="$PROJECT_DIR$/cfg/fewtunev3_dior_30shot.data" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cfg/fewtunev3_dior_3shot.data" beforeDir="false" afterPath="$PROJECT_DIR$/cfg/fewtunev3_dior_3shot.data" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cfg/fewtunev3_dior_5shot.data" beforeDir="false" afterPath="$PROJECT_DIR$/cfg/fewtunev3_dior_5shot.data" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cfg/fewtunev3_nwpu_10shot.data" beforeDir="false" afterPath="$PROJECT_DIR$/cfg/fewtunev3_nwpu_10shot.data" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cfg/fewtunev3_nwpu_3shot.data" beforeDir="false" afterPath="$PROJECT_DIR$/cfg/fewtunev3_nwpu_3shot.data" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cfg/fewtunev3_nwpu_5shot.data" beforeDir="false" afterPath="$PROJECT_DIR$/cfg/fewtunev3_nwpu_5shot.data" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cfg/fewyolov3_dior.data" beforeDir="false" afterPath="$PROJECT_DIR$/cfg/fewyolov3_dior.data" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,16 +28,20 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1Va04Vbk8QUxSWcYwEEnhzkxQMh" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/scripts" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
-  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;last_opened_file_path&quot;: &quot;/home/natalia/Documents/Uni/VC/FSODM&quot;
+  }
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\project\few_shot_detector\Fewshot_Detection-master\scripts" />
@@ -152,6 +170,7 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -164,52 +183,6 @@
       <updated>1577475707399</updated>
     </task>
     <servers />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="351" y="144" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1590650893095">
-      <screen x="0" y="0" width="1280" height="680" />
-    </state>
-    <state x="351" y="144" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1280.680@0.0.1280.680" timestamp="1590650893095" />
-    <state x="321" y="67" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1587017063807">
-      <screen x="0" y="0" width="1280" height="680" />
-    </state>
-    <state x="321" y="67" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1280.680@0.0.1280.680" timestamp="1587017063807" />
-    <state x="371" y="87" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1589257273179">
-      <screen x="0" y="0" width="1280" height="680" />
-    </state>
-    <state x="371" y="87" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1280.680@0.0.1280.680" timestamp="1589257273179" />
-    <state x="421" y="95" key="FileChooserDialogImpl" timestamp="1589582975795">
-      <screen x="0" y="0" width="1280" height="680" />
-    </state>
-    <state x="421" y="95" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1589582975795" />
-    <state width="1259" height="191" key="GridCell.Tab.0.bottom" timestamp="1591599080071">
-      <screen x="0" y="0" width="1280" height="680" />
-    </state>
-    <state width="1259" height="191" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1591599080071" />
-    <state width="1259" height="191" key="GridCell.Tab.0.center" timestamp="1591599080071">
-      <screen x="0" y="0" width="1280" height="680" />
-    </state>
-    <state width="1259" height="191" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1591599080071" />
-    <state width="1259" height="191" key="GridCell.Tab.0.left" timestamp="1591599080070">
-      <screen x="0" y="0" width="1280" height="680" />
-    </state>
-    <state width="1259" height="191" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1591599080070" />
-    <state width="1259" height="191" key="GridCell.Tab.0.right" timestamp="1591599080071">
-      <screen x="0" y="0" width="1280" height="680" />
-    </state>
-    <state width="1259" height="191" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1591599080071" />
-    <state x="142" y="0" key="SettingsEditor" timestamp="1587573971932">
-      <screen x="0" y="0" width="1280" height="680" />
-    </state>
-    <state x="142" y="0" key="SettingsEditor/0.0.1280.680@0.0.1280.680" timestamp="1587573971932" />
-    <state x="325" y="165" key="com.intellij.ide.util.TipDialog" timestamp="1586969774458">
-      <screen x="0" y="0" width="1280" height="680" />
-    </state>
-    <state x="325" y="165" key="com.intellij.ide.util.TipDialog/0.0.1280.680@0.0.1280.680" timestamp="1586969774458" />
-    <state x="303" y="1" width="672" height="678" key="search.everywhere.popup" timestamp="1589430003284">
-      <screen x="0" y="0" width="1280" height="680" />
-    </state>
-    <state x="303" y="1" width="672" height="678" key="search.everywhere.popup/0.0.1280.680@0.0.1280.680" timestamp="1589430003284" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

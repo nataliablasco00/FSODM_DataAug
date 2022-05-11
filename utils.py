@@ -445,8 +445,8 @@ def get_region_boxes_v4(output, n_models, conf_thresh, num_classes, anchors, num
     scale = []
     feature_size = []
     for fs in feature_scale:
-        feature_h = input_size[0] / fs
-        feature_w = input_size[1] / fs
+        feature_h = int(input_size[0] / fs)
+        feature_w = int(input_size[1] / fs)
         feature_size.append([feature_h, feature_w])
         grid_x.append(torch.linspace(0, feature_w - 1, feature_w).repeat(feature_h, 1) \
                       .repeat(batch * nA, 1, 1).view(batch, nA, feature_h * feature_w).cuda())
