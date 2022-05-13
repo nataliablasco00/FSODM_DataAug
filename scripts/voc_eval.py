@@ -158,7 +158,7 @@ def voc_eval(detpath,
                 print(('Reading annotation for {:d}/{:d}'.format(i + 1, len(imagenames))))
         # save
         print(('Saving cached annotations to {:s}'.format(cachefile)))
-        with open(cachefile, 'w') as f:
+        with open(cachefile, 'wb') as f:
             pickle.dump(recs, f)
     else:
         # load

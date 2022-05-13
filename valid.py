@@ -92,8 +92,9 @@ def valid(datacfg, darknetcfg, learnetcfg, weightfile, outfile, use_baserw=False
         for metax, mask, clsids in metaloader:
             print(('===> {}/{}'.format(kkk, len(metaset) // 64)))
             kkk += 1
-            metax, mask = metax.cuda(), mask.cuda()
-            metax, mask = Variable(metax, volatile=True), Variable(mask, volatile=True)
+            with torch.no_grad():
+                metax, mask = metax.cuda(), mask.cuda()
+            # metax, mask = Variable(metax, volatile=True), Variable(mask, volatile=True)
             dws = m.meta_forward(metax, mask)
             for ci, c in enumerate(clsids):
                 for i in range(3):
@@ -139,8 +140,9 @@ def valid(datacfg, darknetcfg, learnetcfg, weightfile, outfile, use_baserw=False
     conf_thresh = 0.5
     nms_thresh = 0.2
     for batch_idx, (data, target) in enumerate(valid_loader):
-        data = data.cuda()
-        data = Variable(data, volatile = True)
+        with torch.no_grad():
+            data = data.cuda()
+        #data = Variable(data, volatile = True)
         output = m.detect_forward(data, dynamic_weights)
 
         if isinstance(output, tuple):
