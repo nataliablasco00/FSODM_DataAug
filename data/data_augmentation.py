@@ -34,19 +34,30 @@ def dataAugmentation(img_path, bbox_path, angle=0):
                 # x2_new = img_rot.shape[1] - coordinates[3]
                 # y2_new = coordinates[2]
 
-                f_w.write(f"{img_rot.shape[1]-float(coordinates[1])} {coordinates[0]} {img_rot.shape[1] - float(coordinates[3])} {coordinates[2]} {coordinates[4]}\n")
+                f_w.write(f"{1-float(coordinates[1])} {coordinates[0]} {1 - float(coordinates[3])} {coordinates[2]} {coordinates[4]}\n")
     return img_path_new, bbox_path_new
 
 novel_classes = ["airplane","baseball-diamond","tennis-court"]
 path_novel = []
+path_bbox = []
 for novel in novel_classes:
     path_txt = f"./nwpulist/box_10shot_{novel}_train.txt"
     with open(path_txt, 'r') as f:
         path_novel.append(f.readlines())
 
+    print(next(os.walk(f"./labels_1c/{novel}_10shot/"))[2])
+    path_bbox.append([f"./labels_1c/{novel}_10shot/{i}" for i in next(os.walk(f"./labels_1c/{novel}_10shot/"))[2]])
+
 path_novel = [item.replace('\n', '') for sublist in path_novel for item in sublist]
 path_novel = list(set(path_novel))
-path_bbox = [(f"./training/annotations/{p.split('/')[-1].replace('.jpg', '.txt')}") for p in path_novel]
+path_bbox = [item.replace('\n', '') for sublist in path_bbox for item in sublist]
+path_bbox = list(set(path_bbox))
+#path_bbox = [(f"./training/annotations/{p.split('/')[-1].replace('.jpg', '.txt')}") for p in path_novel]
+
+#print("IMAGE")
+#print(path_novel)
+#print("BBOX")
+#print(path_bbox)
 
 path_img_90 = []
 path_bbox_90 = []
@@ -68,8 +79,6 @@ for novel, bbox in zip(path_img_180, path_bbox_180):
     img_new, bbox_new = dataAugmentation(novel, bbox, '270')
     path_img_270.append(img_new)
     path_bbox_270.append(bbox_new)
-
-print(path_img_270, path_bbox_270)
 
 
     
