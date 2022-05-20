@@ -1,7 +1,6 @@
 # Few-shot YOLOv3: Few-shot Object Detection on Optical Remote Sensing Images
 
-
-Our code is based on  [https://github.com/marvis/pytorch-yolo2](https://github.com/marvis/pytorch-yolo2) and developed with  Python 2.7 & PyTorch 0.3.1.
+Our code is based on [https://github.com/CV-IP/FSODM](https://github.com/CV-IP/FSODM) and developed being converted to Python 3 and PyTorch 1.11
 
 ## Detection Examples
 
